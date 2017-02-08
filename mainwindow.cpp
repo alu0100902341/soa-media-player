@@ -41,9 +41,21 @@ void MainWindow::on_Webcam_clicked()
 {
     camera->setViewfinder(ui->screen);
     camera->start();
+
+    if (camera->ActiveState){
+        camera->stop();
+    }else{
+        camera->start();
+    }
+
 }
 
 void MainWindow::on_actionQuit_triggered()
 {
     qApp->quit();
+}
+
+void MainWindow::on_actionImport_triggered()
+{
+
 }

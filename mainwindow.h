@@ -29,6 +29,8 @@ private slots:
 
     void on_actionQuit_triggered();
 
+    void on_actionImport_triggered();
+
 private:
     Ui::MainWindow *ui;
     QCamera* camera;
