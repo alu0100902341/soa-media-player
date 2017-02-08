@@ -13,6 +13,11 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(217, 217, 217);
+font: 8pt &quot;MS Shell Dlg 2&quot;;
+border-color: rgb(0, 0, 0);</string>
+  </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
@@ -24,20 +29,6 @@
        <widget class="QPushButton" name="Playpause">
         <property name="text">
          <string>Play</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="Webcam">
-        <property name="text">
-         <string>Webcam</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QRadioButton" name="Forward">
-        <property name="text">
-         <string>Forward</string>
         </property>
        </widget>
       </item>
@@ -55,6 +46,20 @@
         </property>
        </widget>
       </item>
+      <item>
+       <widget class="QRadioButton" name="Forward">
+        <property name="text">
+         <string>Forward</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="Webcam">
+        <property name="text">
+         <string>Webcam</string>
+        </property>
+       </widget>
+      </item>
      </layout>
     </item>
    </layout>
@@ -65,9 +70,17 @@
      <x>0</x>
      <y>0</y>
      <width>400</width>
-     <height>20</height>
+     <height>19</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuActions">
+    <property name="title">
+     <string>Actions</string>
+    </property>
+    <addaction name="actionQuit"/>
+    <addaction name="actionImport"/>
+   </widget>
+   <addaction name="menuActions"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
@@ -78,6 +91,16 @@
    </attribute>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
+  <action name="actionQuit">
+   <property name="text">
+    <string>Quit</string>
+   </property>
+  </action>
+  <action name="actionImport">
+   <property name="text">
+    <string>Import</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>

@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include "QCamera"
 
 namespace Ui {
 class MainWindow;
@@ -25,6 +26,8 @@ private slots:
     void on_Playpause_clicked();
 
     void on_Webcam_clicked();
+
+    void on_actionQuit_triggered();
 
 private:
     Ui::MainWindow *ui;
