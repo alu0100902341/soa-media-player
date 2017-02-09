@@ -2,7 +2,12 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "QCamera"
+#include <QCamera>
+#include <QMediaPlayer>
+#include <QMediaPlaylist>
+#include <QString>
+#include <QMessageBox>
+#include <QFileDialog>
 
 namespace Ui {
 class MainWindow;
@@ -33,6 +38,7 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
+    QMediaPlayer* player;
     QCamera* camera;
 
 };
