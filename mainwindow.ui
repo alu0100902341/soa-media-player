@@ -21,32 +21,34 @@ border-color: rgb(0, 0, 0);</string>
   <widget class="QWidget" name="centralWidget">
    <layout class="QVBoxLayout" name="verticalLayout_3">
     <item>
-     <widget class="QVideoWidget" name="screen" native="true">
-      <zorder>textEdit</zorder>
-      <zorder></zorder>
-      <zorder></zorder>
-     </widget>
+     <widget class="QVideoWidget" name="screen" native="true"/>
     </item>
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
        <layout class="QVBoxLayout" name="verticalLayout_2">
+        <property name="spacing">
+         <number>6</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
         <item>
-         <widget class="QRadioButton" name="Rewind">
+         <widget class="QPushButton" name="Rewind">
           <property name="text">
            <string>Rewind</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QRadioButton" name="Forward">
+         <widget class="QPushButton" name="Forward">
           <property name="text">
            <string>Forward</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QRadioButton" name="Stop">
+         <widget class="QPushButton" name="Stop">
           <property name="text">
            <string>Stop</string>
           </property>
@@ -56,6 +58,12 @@ border-color: rgb(0, 0, 0);</string>
       </item>
       <item>
        <layout class="QVBoxLayout" name="verticalLayout">
+        <property name="topMargin">
+         <number>8</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
         <item>
          <widget class="QPushButton" name="Webcam">
           <property name="enabled">
@@ -88,14 +96,6 @@ border-color: rgb(0, 0, 0);</string>
      <height>19</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menuActions">
-    <property name="title">
-     <string>Actions</string>
-    </property>
-    <addaction name="actionQuit"/>
-    <addaction name="actionImport"/>
-   </widget>
-   <addaction name="menuActions"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">

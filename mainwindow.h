@@ -1,6 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include <QDebug>
 #include <QMainWindow>
 #include <QCamera>
 #include <QMediaPlayer>
@@ -8,6 +9,7 @@
 #include <QString>
 #include <QMessageBox>
 #include <QFileDialog>
+
 
 namespace Ui {
 class MainWindow;
@@ -31,10 +33,6 @@ private slots:
     void on_Playpause_clicked();
 
     void on_Webcam_clicked();
-
-    void on_actionQuit_triggered();
-
-    void on_actionImport_triggered();
 
 private:
     Ui::MainWindow *ui;

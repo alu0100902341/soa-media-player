@@ -13,83 +13,106 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
     delete ui;
+    delete player;
+    delete camera;
 }
 
 void MainWindow::on_Forward_clicked()
 {
+
+    if (player->playbackRate() <= 1.0){
+
+        if (player->state() == player->PlayingState)
+            player->setPlaybackRate(2.0);
+    }else
+        player->setPlaybackRate(1.0);
+
 
 }
 
 void MainWindow::on_Stop_clicked()
 {
 
+    if ((player->state() == player->PlayingState) || (player->state() == player->PausedState)){
+        player->stop();
+        ui->Playpause->setText("Play");
+    }
+
+    if (player->playbackRate() > 1.0)
+        player->setPlaybackRate(1.0);
+
+    if (player->playbackRate() < 1.0)
+        player->setPlaybackRate(1.0);
+
+
 }
 
 void MainWindow::on_Rewind_clicked()
 {
 
+    if (player->playbackRate() >= 1.0){
+
+        if (player->state() == player->PlayingState)
+            player->setPlaybackRate(-2.0);
+    }else
+        player->setPlaybackRate(1.0);
 
 }
 
 void MainWindow::on_Playpause_clicked()
 {
 
-    if ((camera->state() == camera->ActiveState) || (player->NoMedia)){
+    if ((camera->state() == camera->ActiveState) || (player->mediaStatus() == player->NoMedia)){
 
+        if (camera->state() == camera->ActiveState)
+            camera->stop();
 
         QString fileName = QFileDialog::getOpenFileName(this,
             tr("Open File"), QString(),
-            tr("Video Files (*.mp4);"));
+            tr("Video Files (*.avi);"));
 
         if (!fileName.isEmpty()) {
-            QFile file(fileName);
-            if (!file.open(QIODevice::ReadOnly)) {
-                QMessageBox::critical(this, tr("Error"),
-                    tr("Could not open file"));
-                return;
-            }
 
             player->setVideoOutput(ui->screen);
             player->setMedia(QUrl::fromLocalFile(fileName));
+            qDebug() << fileName << endl;
             ui->screen->show();
             player->play();
+            ui->Playpause->setText("Pause");
 
-
-            //ui->Title->setText(in.readAll());
-            file.close();
         }
+
 
     }else{
 
-        if (player->state() == player->StoppedState){
-            ui->Playpause->setText("Pause");
+        if ((player->state() == player->PausedState) || (player->state() == player->StoppedState)){
             player->play();
+            ui->Playpause->setText("Pause");
         }else{
-            ui->Playpause->setText("Play");
             player->pause();
+            ui->Playpause->setText("Play");
         }
     }
 }
 
 void MainWindow::on_Webcam_clicked()
 {
-    camera->setViewfinder(ui->screen);
-    camera->start();
+    if (player->state() != player->StoppedState){
+        player->stop();
 
-    if (camera->state() == camera->ActiveState){
-        camera->stop();
-    }else{
-        camera->start();
+        if (player->playbackRate() > 1.0)
+            player->setPlaybackRate(1.0);
+
+        if (player->playbackRate() < 1.0)
+            player->setPlaybackRate(1.0);
+
     }
+    camera->setViewfinder(ui->screen);
 
-}
+    if (camera->state() == camera->ActiveState)
+        camera->stop();
+    else
+        camera->start();
 
-void MainWindow::on_actionQuit_triggered()
-{
-    qApp->quit();
-}
-
-void MainWindow::on_actionImport_triggered()
-{
 
 }
