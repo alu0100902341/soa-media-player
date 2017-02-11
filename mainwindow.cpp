@@ -23,7 +23,7 @@ void MainWindow::on_Forward_clicked()
     if (player->playbackRate() <= 1.0){
 
         if (player->state() == player->PlayingState)
-            player->setPlaybackRate(2.0);
+            player->setPlaybackRate(1.5);
     }else
         player->setPlaybackRate(1.0);
 
@@ -50,10 +50,10 @@ void MainWindow::on_Stop_clicked()
 void MainWindow::on_Rewind_clicked()
 {
 
-    if (player->playbackRate() >= 1.0){
+    if (player->playbackRate() == 1.0){
 
         if (player->state() == player->PlayingState)
-            player->setPlaybackRate(-2.0);
+            player->setPlaybackRate(-1.5);
     }else
         player->setPlaybackRate(1.0);
 
@@ -115,4 +115,36 @@ void MainWindow::on_Webcam_clicked()
         camera->start();
 
 
+}
+
+
+void MainWindow::on_pushButton_clicked()
+{
+    if (player->playbackRate() != 1.0){
+        if (player->playbackRate() > 1.0)
+           player->setPlaybackRate(player->playbackRate()+0.5);
+        else
+            player->setPlaybackRate(player->playbackRate()-0.5);
+    }
+}
+
+void MainWindow::on_pushButton_2_clicked()
+{
+
+    if (player->playbackRate() != 1.0){
+        if (player->playbackRate() > 1.0)
+           player->setPlaybackRate(player->playbackRate()-0.5);
+        else
+            player->setPlaybackRate(player->playbackRate()+0.5);
+    }
+
+}
+
+void MainWindow::on_toolButton_clicked()
+{
+    QMenu *menu = new QMenu(this);
+    menu->addAction(new QAction("Action 1", this));
+    menu->addAction(new QAction("Action 2", this));
+    menu->addAction(new QAction("Action 3", this));
+    ui->toolButton->setMenu(menu);
 }

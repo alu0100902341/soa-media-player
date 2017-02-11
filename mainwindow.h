@@ -34,6 +34,14 @@ private slots:
 
     void on_Webcam_clicked();
 
+
+    void on_pushButton_clicked();
+
+    void on_pushButton_2_clicked();
+
+
+    void on_toolButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     QMediaPlayer* player;

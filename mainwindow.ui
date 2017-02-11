@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>444</width>
+    <height>364</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -21,45 +21,34 @@ border-color: rgb(0, 0, 0);</string>
   <widget class="QWidget" name="centralWidget">
    <layout class="QVBoxLayout" name="verticalLayout_3">
     <item>
-     <widget class="QVideoWidget" name="screen" native="true"/>
-    </item>
-    <item>
-     <layout class="QHBoxLayout" name="horizontalLayout">
+     <layout class="QVBoxLayout" name="verticalLayout_2">
+      <property name="spacing">
+       <number>0</number>
+      </property>
       <item>
-       <layout class="QVBoxLayout" name="verticalLayout_2">
-        <property name="spacing">
-         <number>6</number>
+       <widget class="QVideoWidget" name="screen" native="true">
+        <property name="autoFillBackground">
+         <bool>false</bool>
         </property>
-        <property name="bottomMargin">
-         <number>0</number>
-        </property>
-        <item>
-         <widget class="QPushButton" name="Rewind">
-          <property name="text">
-           <string>Rewind</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="Forward">
-          <property name="text">
-           <string>Forward</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="Stop">
-          <property name="text">
-           <string>Stop</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
+        <zorder></zorder>
+       </widget>
       </item>
       <item>
        <layout class="QVBoxLayout" name="verticalLayout">
+        <property name="spacing">
+         <number>5</number>
+        </property>
+        <property name="sizeConstraint">
+         <enum>QLayout::SetMinimumSize</enum>
+        </property>
+        <property name="leftMargin">
+         <number>128</number>
+        </property>
         <property name="topMargin">
-         <number>8</number>
+         <number>21</number>
+        </property>
+        <property name="rightMargin">
+         <number>139</number>
         </property>
         <property name="bottomMargin">
          <number>0</number>
@@ -75,9 +64,64 @@ border-color: rgb(0, 0, 0);</string>
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="Playpause">
+         <layout class="QGridLayout" name="gridLayout">
+          <property name="leftMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <property name="verticalSpacing">
+           <number>3</number>
+          </property>
+          <item row="1" column="0">
+           <widget class="QPushButton" name="Stop">
+            <property name="text">
+             <string>Stop</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QPushButton" name="Rewind">
+            <property name="text">
+             <string>Rewind</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0">
+           <widget class="QPushButton" name="Playpause">
+            <property name="text">
+             <string>Play</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="2">
+           <widget class="QPushButton" name="pushButton_2">
+            <property name="text">
+             <string>-</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="2">
+           <widget class="QPushButton" name="pushButton">
+            <property name="text">
+             <string>+</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QPushButton" name="Forward">
+            <property name="text">
+             <string>Forward</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="QToolButton" name="toolButton">
           <property name="text">
-           <string>Play</string>
+           <string>...</string>
           </property>
          </widget>
         </item>
@@ -86,13 +130,15 @@ border-color: rgb(0, 0, 0);</string>
      </layout>
     </item>
    </layout>
+   <zorder></zorder>
+   <zorder></zorder>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>400</width>
+     <width>444</width>
      <height>19</height>
     </rect>
    </property>
