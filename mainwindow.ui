@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>444</width>
+    <width>526</width>
     <height>364</height>
    </rect>
   </property>
@@ -30,7 +30,6 @@ border-color: rgb(0, 0, 0);</string>
         <property name="autoFillBackground">
          <bool>false</bool>
         </property>
-        <zorder></zorder>
        </widget>
       </item>
       <item>
@@ -81,13 +80,6 @@ border-color: rgb(0, 0, 0);</string>
             </property>
            </widget>
           </item>
-          <item row="1" column="1">
-           <widget class="QPushButton" name="Rewind">
-            <property name="text">
-             <string>Rewind</string>
-            </property>
-           </widget>
-          </item>
           <item row="0" column="0">
            <widget class="QPushButton" name="Playpause">
             <property name="text">
@@ -95,35 +87,24 @@ border-color: rgb(0, 0, 0);</string>
             </property>
            </widget>
           </item>
-          <item row="1" column="2">
-           <widget class="QPushButton" name="pushButton_2">
-            <property name="text">
-             <string>-</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="2">
-           <widget class="QPushButton" name="pushButton">
-            <property name="text">
-             <string>+</string>
-            </property>
-           </widget>
-          </item>
           <item row="0" column="1">
-           <widget class="QPushButton" name="Forward">
+           <widget class="QToolButton" name="Forward">
             <property name="text">
              <string>Forward</string>
+            </property>
+            <property name="popupMode">
+             <enum>QToolButton::InstantPopup</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QToolButton" name="Rewind">
+            <property name="text">
+             <string>Rewind</string>
             </property>
            </widget>
           </item>
          </layout>
-        </item>
-        <item>
-         <widget class="QToolButton" name="toolButton">
-          <property name="text">
-           <string>...</string>
-          </property>
-         </widget>
         </item>
        </layout>
       </item>
@@ -131,14 +112,13 @@ border-color: rgb(0, 0, 0);</string>
     </item>
    </layout>
    <zorder></zorder>
-   <zorder></zorder>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>444</width>
+     <width>526</width>
      <height>19</height>
     </rect>
    </property>

@@ -24,28 +24,29 @@ public:
     ~MainWindow();
 
 private slots:
+
     void on_Forward_clicked();
-
     void on_Stop_clicked();
-
     void on_Rewind_clicked();
-
     void on_Playpause_clicked();
-
     void on_Webcam_clicked();
-
-
     void on_pushButton_clicked();
-
     void on_pushButton_2_clicked();
-
-
-    void on_toolButton_clicked();
+    void create_menu();
+    void create_menu_actions();
+    void increase3();
+    void Normal();
+    void increase1();
+    void increase2();
+    void decrease1();
+    void decrease2();
 
 private:
     Ui::MainWindow *ui;
     QMediaPlayer* player;
     QCamera* camera;
+    QMenu* speed_menu_forward;
+    QMenu* speed_menu_rewind;
 
 };
 
