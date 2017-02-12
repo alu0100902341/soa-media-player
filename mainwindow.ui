@@ -19,92 +19,79 @@ font: 8pt &quot;MS Shell Dlg 2&quot;;
 border-color: rgb(0, 0, 0);</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <layout class="QVBoxLayout" name="verticalLayout_3">
+   <layout class="QVBoxLayout" name="verticalLayout_2">
     <item>
-     <layout class="QVBoxLayout" name="verticalLayout_2">
+     <widget class="QVideoWidget" name="screen" native="true">
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <layout class="QVBoxLayout" name="verticalLayout">
       <property name="spacing">
-       <number>0</number>
+       <number>5</number>
+      </property>
+      <property name="sizeConstraint">
+       <enum>QLayout::SetMinimumSize</enum>
+      </property>
+      <property name="leftMargin">
+       <number>200</number>
+      </property>
+      <property name="topMargin">
+       <number>23</number>
+      </property>
+      <property name="rightMargin">
+       <number>200</number>
+      </property>
+      <property name="bottomMargin">
+       <number>1</number>
       </property>
       <item>
-       <widget class="QVideoWidget" name="screen" native="true">
-        <property name="autoFillBackground">
-         <bool>false</bool>
+       <widget class="QPushButton" name="Webcam">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="text">
+         <string>Webcam</string>
         </property>
        </widget>
       </item>
       <item>
-       <layout class="QVBoxLayout" name="verticalLayout">
-        <property name="spacing">
-         <number>5</number>
-        </property>
-        <property name="sizeConstraint">
-         <enum>QLayout::SetMinimumSize</enum>
-        </property>
-        <property name="leftMargin">
-         <number>128</number>
-        </property>
-        <property name="topMargin">
-         <number>21</number>
-        </property>
-        <property name="rightMargin">
-         <number>139</number>
-        </property>
-        <property name="bottomMargin">
-         <number>0</number>
-        </property>
-        <item>
-         <widget class="QPushButton" name="Webcam">
-          <property name="enabled">
-           <bool>true</bool>
-          </property>
+       <layout class="QGridLayout" name="gridLayout">
+        <item row="0" column="0">
+         <widget class="QPushButton" name="Playpause">
           <property name="text">
-           <string>Webcam</string>
+           <string>Play</string>
           </property>
          </widget>
         </item>
-        <item>
-         <layout class="QGridLayout" name="gridLayout">
-          <property name="leftMargin">
-           <number>0</number>
+        <item row="0" column="1">
+         <widget class="QToolButton" name="Forward">
+          <property name="text">
+           <string>Forward</string>
           </property>
-          <property name="rightMargin">
-           <number>0</number>
+          <property name="popupMode">
+           <enum>QToolButton::InstantPopup</enum>
           </property>
-          <property name="verticalSpacing">
-           <number>3</number>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QPushButton" name="Stop">
+          <property name="text">
+           <string>Stop</string>
           </property>
-          <item row="1" column="0">
-           <widget class="QPushButton" name="Stop">
-            <property name="text">
-             <string>Stop</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="0">
-           <widget class="QPushButton" name="Playpause">
-            <property name="text">
-             <string>Play</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="1">
-           <widget class="QToolButton" name="Forward">
-            <property name="text">
-             <string>Forward</string>
-            </property>
-            <property name="popupMode">
-             <enum>QToolButton::InstantPopup</enum>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="1">
-           <widget class="QToolButton" name="Rewind">
-            <property name="text">
-             <string>Rewind</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QToolButton" name="Rewind">
+          <property name="text">
+           <string>Rewind</string>
+          </property>
+          <property name="popupMode">
+           <enum>QToolButton::InstantPopup</enum>
+          </property>
+         </widget>
         </item>
        </layout>
       </item>
@@ -132,16 +119,6 @@ border-color: rgb(0, 0, 0);</string>
    </attribute>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
-  <action name="actionQuit">
-   <property name="text">
-    <string>Quit</string>
-   </property>
-  </action>
-  <action name="actionImport">
-   <property name="text">
-    <string>Import</string>
-   </property>
-  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>

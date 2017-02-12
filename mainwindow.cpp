@@ -7,11 +7,12 @@ MainWindow::MainWindow(QWidget *parent) :
     player(new QMediaPlayer),
     camera(new QCamera),
     speed_menu_forward(new QMenu),
-    speed_menu_rewind(new QMenu)
+    speed_menu_rewind(new QMenu),
+    infocamera(new QCameraInfo())
 {
     ui->setupUi(this);
-    create_menu_actions();
-    create_menu();
+    create_menus();
+    setWindowTitle("Media Player");
 }
 
 MainWindow::~MainWindow()
@@ -23,7 +24,7 @@ MainWindow::~MainWindow()
     delete speed_menu_rewind;
 }
 
-void MainWindow::create_menu_actions()
+void MainWindow::create_menus()
 {
 
     QAction *Increase_3 = new QAction("0.5", this);
@@ -53,27 +54,37 @@ void MainWindow::create_menu_actions()
     speed_menu_rewind->addAction(Decrease_1);
     speed_menu_rewind->addAction(Decrease_2);
 
+    ui->Forward->setMenu(speed_menu_forward);
+
+    if (player->playbackRate()==2.0)
+        Increase_2->setEnabled(true);
+    if (player->playbackRate()==1.5)
+        Increase_1->setEnabled(true);
+
+    ui->Rewind->setMenu(speed_menu_rewind);
+
 }
 
-void MainWindow::create_menu()
-{
+void MainWindow::Speed(qreal real){
 
+    if ((player->state() == player->PlayingState) || (player->state() == player->PausedState))
+        player->setPlaybackRate(real);
+    else
+    QMessageBox::warning(this, tr("Warning"),
+                         tr("Video must be playing/paused."));
 }
 
-void MainWindow::Normal(){ player->setPlaybackRate(1.0); }
-void MainWindow::increase3(){ player->setPlaybackRate(0.5); }
-void MainWindow::increase1(){ player->setPlaybackRate(1.5); }
-void MainWindow::increase2(){ player->setPlaybackRate(2.0); }
+void MainWindow::Normal(){ Speed(1.0); }
+void MainWindow::increase3(){ Speed(0.5); }
+void MainWindow::increase1(){ Speed(1.5); }
+void MainWindow::increase2(){ Speed(2.0); }
 
-void MainWindow::decrease1(){ player->setPlaybackRate(-1.5); }
-void MainWindow::decrease2(){ player->setPlaybackRate(-2.0); }
+void MainWindow::decrease1(){ Speed(-1.5); }
+void MainWindow::decrease2(){ Speed(-2.0); }
 
 
 // ------------------------------------------------------------------------------------------------
 
-void MainWindow::on_Forward_clicked(){ ui->Forward->setMenu(speed_menu_forward);}
-
-void MainWindow::on_Rewind_clicked(){ ui->Rewind->setMenu(speed_menu_rewind);}
 
 void MainWindow::on_Stop_clicked()
 {
@@ -106,6 +117,10 @@ void MainWindow::on_Playpause_clicked()
 
         if (!fileName.isEmpty()) {
 
+            QStringList parts = fileName.split("/");
+            QString lastBit = parts.at(parts.size()-1);
+            setWindowTitle(lastBit);
+
             player->setVideoOutput(ui->screen);
             player->setMedia(QUrl::fromLocalFile(fileName));
             qDebug() << fileName << endl;
@@ -131,6 +146,7 @@ void MainWindow::on_Playpause_clicked()
 void MainWindow::on_Webcam_clicked()
 {
     if (player->state() != player->StoppedState){
+
         player->stop();
 
         if (player->playbackRate() > 1.0)
@@ -138,37 +154,15 @@ void MainWindow::on_Webcam_clicked()
 
         if (player->playbackRate() < 1.0)
             player->setPlaybackRate(1.0);
-
     }
+
     camera->setViewfinder(ui->screen);
+    setWindowTitle(infocamera->deviceName());
 
     if (camera->state() == camera->ActiveState)
         camera->stop();
     else
         camera->start();
-}
-
-
-void MainWindow::on_pushButton_clicked()
-{
-    if (player->playbackRate() != 1.0){
-        if (player->playbackRate() > 1.0)
-           player->setPlaybackRate(player->playbackRate()+0.5);
-        else
-            player->setPlaybackRate(player->playbackRate()-0.5);
-    }
-}
-
-void MainWindow::on_pushButton_2_clicked()
-{
-
-    if (player->playbackRate() != 1.0){
-        if (player->playbackRate() > 1.0)
-           player->setPlaybackRate(player->playbackRate()-0.5);
-        else
-            player->setPlaybackRate(player->playbackRate()+0.5);
-    }
-
 }
 
 
