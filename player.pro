@@ -4,6 +4,7 @@
 #
 #-------------------------------------------------
 
+RESOURCES     = application.qrc
 QT       += core gui
 QT += multimediawidgets
 QT += multimedia multimediawidgets
