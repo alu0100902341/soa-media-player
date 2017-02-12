@@ -5,7 +5,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
     player(new QMediaPlayer),
-    camera(new QCamera),
+    camera(),
     speed_menu_forward(new QMenu),
     speed_menu_rewind(new QMenu),
     infocamera(new QCameraInfo())
@@ -13,6 +13,9 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     create_menus();
     setWindowTitle("Media Player");
+    QList<QCameraInfo> devices = QCameraInfo::availableCameras();
+    qDebug() << devices[0].deviceName() << endl;
+    camera = new QCamera(devices[0]);
 }
 
 MainWindow::~MainWindow()
@@ -55,12 +58,6 @@ void MainWindow::create_menus()
     speed_menu_rewind->addAction(Decrease_2);
 
     ui->Forward->setMenu(speed_menu_forward);
-
-    if (player->playbackRate()==2.0)
-        Increase_2->setEnabled(true);
-    if (player->playbackRate()==1.5)
-        Increase_1->setEnabled(true);
-
     ui->Rewind->setMenu(speed_menu_rewind);
 
 }
@@ -89,9 +86,16 @@ void MainWindow::decrease2(){ Speed(-2.0); }
 void MainWindow::on_Stop_clicked()
 {
 
+    if (camera->state() == camera->ActiveState)
+        camera->stop();
+
     if ((player->state() == player->PlayingState) || (player->state() == player->PausedState)){
         player->stop();
         ui->Playpause->setText("Play");
+        setWindowTitle("Media Player");
+    }else{
+        QMessageBox::warning(this, tr("Warning"),
+                             tr("No video is been displayed."));
     }
 
     if (player->playbackRate() > 1.0)
@@ -106,7 +110,7 @@ void MainWindow::on_Stop_clicked()
 void MainWindow::on_Playpause_clicked()
 {
 
-    if ((camera->state() == camera->ActiveState) || (player->mediaStatus() == player->NoMedia)){
+    if ((camera->state() == camera->ActiveState) || (player->state() == player->StoppedState)){
 
         if (camera->state() == camera->ActiveState)
             camera->stop();
@@ -156,13 +160,12 @@ void MainWindow::on_Webcam_clicked()
             player->setPlaybackRate(1.0);
     }
 
-    camera->setViewfinder(ui->screen);
-    setWindowTitle(infocamera->deviceName());
-
     if (camera->state() == camera->ActiveState)
         camera->stop();
-    else
+    else{
+        camera->setViewfinder(ui->screen);
         camera->start();
+    }
 }
 
 
