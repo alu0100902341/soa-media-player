@@ -6,17 +6,16 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow),
     player(new QMediaPlayer),
     camera(),
-    speed_menu_forward(new QMenu),
-    speed_menu_rewind(new QMenu),
-    infocamera(new QCameraInfo())
+    infocamera(new QCameraInfo)
 {
     ui->setupUi(this);
+
     create_icons();
     create_menus();
+    error_management();
+    webcam_configuraion();
+
     setWindowTitle("Media Player");
-    QList<QCameraInfo> devices = QCameraInfo::availableCameras();
-    qDebug() << devices[0].deviceName() << endl;
-    camera = new QCamera(devices[0]);
 
 }
 
@@ -25,10 +24,37 @@ MainWindow::~MainWindow()
     delete ui;
     delete player;
     delete camera;
-    delete speed_menu_forward;
-    delete speed_menu_rewind;
+}
+// ---------------------------------- WebCam Context Menu + Configuration Option --------------------------------------------------------------
+
+void MainWindow::webcam_configuraion()
+{
+
+    QList<QCameraInfo> devices = QCameraInfo::availableCameras();
+    *infocamera = devices[0];
+    qDebug() << infocamera->deviceName() << endl;
+    camera = new QCamera(*infocamera);
+
+    ui->Webcam->setContextMenuPolicy(Qt::CustomContextMenu);
+
+    connect(ui->Webcam, &QWidget::customContextMenuRequested ,this ,&MainWindow::webcamContextMenu);
 }
 
+void MainWindow::webcamContextMenu()
+{
+   QMenu contextMenu;
+   QAction config_action("Configuration", this);
+   connect(&config_action, &QAction::triggered, this, &MainWindow::configuration_action);
+   contextMenu.addAction(&config_action);
+   contextMenu.exec(mapToGlobal(ui->Webcam->pos()));
+}
+
+void MainWindow::configuration_action()
+{
+
+}
+
+// ---------------------------------- Icons --------------------------------------------------------------
 void MainWindow::create_icons()
 {
     QPixmap pixmap0(":/images/play.png");
@@ -74,9 +100,9 @@ void MainWindow::pause_icon()
     ui->Playpause->setIconSize(pixmap00.rect().size());
 }
 
+// --------------------------------Forward and Rewind Pop-Up menus----------------------------------------------------------------
 void MainWindow::create_menus()
 {
-
     QAction *Increase_3 = new QAction("0.5", this);
     connect(Increase_3, &QAction::triggered, this, &MainWindow::increase3);
 
@@ -95,6 +121,9 @@ void MainWindow::create_menus()
     QAction *Decrease_2 = new QAction("-2.0", this);
     connect(Decrease_2, &QAction::triggered, this, &MainWindow::decrease2);
 
+    QMenu* speed_menu_forward = new QMenu;
+    QMenu* speed_menu_rewind = new QMenu;
+
     speed_menu_forward->addAction(Increase_3);
     speed_menu_forward->addAction(Normal);
     speed_menu_forward->addAction(Increase_1);
@@ -104,11 +133,12 @@ void MainWindow::create_menus()
     speed_menu_rewind->addAction(Decrease_1);
     speed_menu_rewind->addAction(Decrease_2);
 
+
     ui->Forward->setMenu(speed_menu_forward);
     ui->Rewind->setMenu(speed_menu_rewind);
 
 }
-
+// ----------------------------------Speed Controls--------------------------------------------------------------
 void MainWindow::Speed(qreal real){
 
     if ((player->state() == player->PlayingState) || (player->state() == player->PausedState))
@@ -126,8 +156,45 @@ void MainWindow::increase2(){ Speed(2.0); }
 void MainWindow::decrease1(){ Speed(-1.5); }
 void MainWindow::decrease2(){ Speed(-2.0); }
 
+// -------------------------------Error Management-----------------------------------------------------------------
 
-// ------------------------------------------------------------------------------------------------
+void MainWindow::error_management()
+{
+    //connect(player, static_cast<void(QMediaPlayer::*)(QMediaPlayer::Error)>(&QMediaPlayer::error), &MainWindow::playerError);
+    //connect(camera, static_cast<void(QCamera::*)(QCamera::Error)>(&QCamera::error), &MainWindow::cameraError);
+}
+
+void MainWindow::playerError()
+{
+    ui->Playpause->setEnabled(false);
+    const QString errorString = player->errorString();
+    QString message = "Error: ";
+    if (errorString.isEmpty())
+        message += " #" + QString::number(int(player->error()));
+    else
+        message += errorString;
+
+    QMessageBox::critical(this, tr("Error"),
+                         errorString);
+
+}
+
+void MainWindow::cameraError()
+{
+    ui->Webcam->setEnabled(false);
+    const QString errorString = camera->errorString();
+    QString message = "Error: ";
+    if (errorString.isEmpty())
+        message += " #" + QString::number(int(camera->error()));
+    else
+        message += errorString;
+
+    QMessageBox::critical(this, tr("Error"),
+                         errorString);
+
+}
+
+// ----------------------------------Button Slots--------------------------------------------------------------
 
 
 void MainWindow::on_Stop_clicked()
@@ -180,11 +247,9 @@ void MainWindow::on_Playpause_clicked()
             qDebug() << fileName << endl;
             ui->screen->show();
             player->play();
-
             pause_icon();
 
         }
-
 
     }else{
 
@@ -211,9 +276,11 @@ void MainWindow::on_Webcam_clicked()
             player->setPlaybackRate(1.0);
     }
 
-    if (camera->state() == camera->ActiveState)
+    if (camera->state() == camera->ActiveState){
         camera->stop();
-    else{
+        setWindowTitle("Media Player");
+    }else{
+        setWindowTitle(infocamera->deviceName());
         camera->setViewfinder(ui->screen);
         camera->start();
     }

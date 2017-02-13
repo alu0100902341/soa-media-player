@@ -42,13 +42,17 @@ private slots:
 
     void play_icon();
     void pause_icon();
+    void error_management();
+    void playerError();
+    void cameraError();
+    void webcam_configuraion();
+    void webcamContextMenu();
+    void configuration_action();
 
 private:
     Ui::MainWindow *ui;
     QMediaPlayer* player;
     QCamera* camera;
-    QMenu* speed_menu_forward;
-    QMenu* speed_menu_rewind;
     QCameraInfo* infocamera;
 
 };
