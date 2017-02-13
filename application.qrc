@@ -6,5 +6,6 @@
     <file>images/rewind.png</file>
     <file>images/stop.png</file>
     <file>images/last.png</file>
+    <file>images/webcam.png</file>
 </qresource>
 </RCC>

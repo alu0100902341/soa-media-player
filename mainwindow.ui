@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>526</width>
+    <width>554</width>
     <height>364</height>
    </rect>
   </property>
@@ -19,7 +19,7 @@ font: 8pt &quot;MS Shell Dlg 2&quot;;
 border-color: rgb(0, 0, 0);</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <layout class="QVBoxLayout" name="verticalLayout_2">
+   <layout class="QVBoxLayout" name="verticalLayout">
     <item>
      <widget class="QVideoWidget" name="screen" native="true">
       <property name="autoFillBackground">
@@ -28,84 +28,68 @@ border-color: rgb(0, 0, 0);</string>
      </widget>
     </item>
     <item>
-     <layout class="QVBoxLayout" name="verticalLayout">
-      <property name="spacing">
-       <number>5</number>
-      </property>
-      <property name="sizeConstraint">
-       <enum>QLayout::SetMinimumSize</enum>
-      </property>
-      <property name="leftMargin">
-       <number>200</number>
-      </property>
-      <property name="topMargin">
-       <number>23</number>
-      </property>
-      <property name="rightMargin">
-       <number>200</number>
-      </property>
-      <property name="bottomMargin">
-       <number>1</number>
-      </property>
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <widget class="QPushButton" name="Playpause">
+        <property name="styleSheet">
+         <string notr="true">QPushButton { image: url(:/images/play.png)}
+QPushButton:hover { color: white }</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="Stop">
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QToolButton" name="Forward">
+        <property name="styleSheet">
+         <string notr="true">image: url(:/images/forward.png);</string>
+        </property>
+        <property name="text">
+         <string>Forward</string>
+        </property>
+        <property name="popupMode">
+         <enum>QToolButton::InstantPopup</enum>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QToolButton" name="Rewind">
+        <property name="text">
+         <string>Rewind</string>
+        </property>
+        <property name="popupMode">
+         <enum>QToolButton::InstantPopup</enum>
+        </property>
+       </widget>
+      </item>
       <item>
        <widget class="QPushButton" name="Webcam">
         <property name="enabled">
          <bool>true</bool>
         </property>
         <property name="text">
-         <string>Webcam</string>
+         <string/>
         </property>
        </widget>
-      </item>
-      <item>
-       <layout class="QGridLayout" name="gridLayout">
-        <item row="0" column="0">
-         <widget class="QPushButton" name="Playpause">
-          <property name="text">
-           <string>Play</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1">
-         <widget class="QToolButton" name="Forward">
-          <property name="text">
-           <string>Forward</string>
-          </property>
-          <property name="popupMode">
-           <enum>QToolButton::InstantPopup</enum>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0">
-         <widget class="QPushButton" name="Stop">
-          <property name="text">
-           <string>Stop</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <widget class="QToolButton" name="Rewind">
-          <property name="text">
-           <string>Rewind</string>
-          </property>
-          <property name="popupMode">
-           <enum>QToolButton::InstantPopup</enum>
-          </property>
-         </widget>
-        </item>
-       </layout>
       </item>
      </layout>
     </item>
    </layout>
-   <zorder></zorder>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>526</width>
+     <width>554</width>
      <height>19</height>
     </rect>
    </property>

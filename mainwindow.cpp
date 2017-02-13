@@ -11,11 +11,13 @@ MainWindow::MainWindow(QWidget *parent) :
     infocamera(new QCameraInfo())
 {
     ui->setupUi(this);
+    create_icons();
     create_menus();
     setWindowTitle("Media Player");
     QList<QCameraInfo> devices = QCameraInfo::availableCameras();
     qDebug() << devices[0].deviceName() << endl;
     camera = new QCamera(devices[0]);
+
 }
 
 MainWindow::~MainWindow()
@@ -25,6 +27,51 @@ MainWindow::~MainWindow()
     delete camera;
     delete speed_menu_forward;
     delete speed_menu_rewind;
+}
+
+void MainWindow::create_icons()
+{
+    QPixmap pixmap0(":/images/play.png");
+    QIcon play(pixmap0);
+    ui->Playpause->setIcon(play);
+    ui->Playpause->setIconSize(pixmap0.rect().size());
+
+    QPixmap pixmap1(":/images/stop.png");
+    QIcon stop(pixmap1);
+    ui->Stop->setIcon(stop);
+    ui->Stop->setIconSize(pixmap1.rect().size());
+
+    QPixmap pixmap2(":/images/forward.png");
+    QIcon forward(pixmap2);
+    ui->Forward->setIcon(forward);
+    ui->Forward->setIconSize(pixmap2.rect().size());
+
+    QPixmap pixmap3(":/images/rewind.png");
+    QIcon rewind(pixmap3);
+    ui->Rewind->setIcon(rewind);
+    ui->Rewind->setIconSize(pixmap3.rect().size());
+
+    QPixmap pixmap4(":/images/webcam.png");
+    QIcon webcam(pixmap4);
+    ui->Webcam->setIcon(webcam);
+    ui->Webcam->setIconSize(pixmap4.rect().size());
+
+}
+
+void MainWindow::play_icon()
+{
+    QPixmap pixmap0(":/images/play.png");
+    QIcon play(pixmap0);
+    ui->Playpause->setIcon(play);
+    ui->Playpause->setIconSize(pixmap0.rect().size());
+}
+
+void MainWindow::pause_icon()
+{
+    QPixmap pixmap00(":/images/pause.png");
+    QIcon pause(pixmap00);
+    ui->Playpause->setIcon(pause);
+    ui->Playpause->setIconSize(pixmap00.rect().size());
 }
 
 void MainWindow::create_menus()
@@ -90,8 +137,11 @@ void MainWindow::on_Stop_clicked()
         camera->stop();
 
     if ((player->state() == player->PlayingState) || (player->state() == player->PausedState)){
+
         player->stop();
-        ui->Playpause->setText("Play");
+
+        play_icon();
+
         setWindowTitle("Media Player");
     }else{
         QMessageBox::warning(this, tr("Warning"),
@@ -130,7 +180,8 @@ void MainWindow::on_Playpause_clicked()
             qDebug() << fileName << endl;
             ui->screen->show();
             player->play();
-            ui->Playpause->setText("Pause");
+
+            pause_icon();
 
         }
 
@@ -139,10 +190,10 @@ void MainWindow::on_Playpause_clicked()
 
         if ((player->state() == player->PausedState) || (player->state() == player->StoppedState)){
             player->play();
-            ui->Playpause->setText("Pause");
+            pause_icon();
         }else{
             player->pause();
-            ui->Playpause->setText("Play");
+            play_icon();
         }
     }
 }

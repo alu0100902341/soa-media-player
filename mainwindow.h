@@ -10,6 +10,8 @@
 #include <QMessageBox>
 #include <QFileDialog>
 #include <QCameraInfo>
+#include <QIcon>
+#include <QPixmap>
 
 namespace Ui {
 class MainWindow;
@@ -36,6 +38,10 @@ private slots:
     void decrease1();
     void decrease2();
     void Speed(qreal real);
+    void create_icons();
+
+    void play_icon();
+    void pause_icon();
 
 private:
     Ui::MainWindow *ui;
@@ -44,6 +50,7 @@ private:
     QMenu* speed_menu_forward;
     QMenu* speed_menu_rewind;
     QCameraInfo* infocamera;
+
 };
 
 #endif // MAINWINDOW_H

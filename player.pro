@@ -10,6 +10,7 @@ QT += multimediawidgets
 QT += multimedia multimediawidgets
 QT += multimedia
 QT += widgets
+QT += gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
