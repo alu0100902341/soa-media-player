@@ -28,6 +28,14 @@ border-color: rgb(0, 0, 0);</string>
       <property name="styleSheet">
        <string notr="true"/>
       </property>
+      <zorder></zorder>
+     </widget>
+    </item>
+    <item>
+     <widget class="Line" name="line">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
      </widget>
     </item>
     <item>
@@ -86,7 +94,17 @@ QPushButton:hover { color: white }</string>
         </property>
        </widget>
       </item>
+      <item>
+       <widget class="QComboBox" name="comboBox"/>
+      </item>
      </layout>
+    </item>
+    <item>
+     <widget class="Line" name="line_2">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
     </item>
    </layout>
   </widget>

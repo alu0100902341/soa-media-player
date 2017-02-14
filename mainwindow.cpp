@@ -6,16 +6,17 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow),
     player(new QMediaPlayer),
     camera(),
-    infocamera(new QCameraInfo)
+    camera_devices()
 {
     ui->setupUi(this);
 
+    webcam_configuraion();
     create_icons();
     create_menus();
     error_management();
-    webcam_configuraion();
 
     setWindowTitle("Media Player");
+
 
 }
 
@@ -25,18 +26,23 @@ MainWindow::~MainWindow()
     delete player;
     delete camera;
 }
+
+
 // ---------------------------------- WebCam Context Menu + Configuration Option --------------------------------------------------------------
 
 void MainWindow::webcam_configuraion()
 {
 
-    QList<QCameraInfo> devices = QCameraInfo::availableCameras();
-    *infocamera = devices[0];
-    qDebug() << infocamera->deviceName() << endl;
-    camera = new QCamera(*infocamera);
+    camera_devices = QCameraInfo::availableCameras();
+    qDebug() << camera_devices[0].deviceName() << endl;
+    camera = new QCamera(camera_devices[0]);
+
+    foreach(QCameraInfo c, camera_devices){
+        ui->comboBox->addItem(c.deviceName());
+    }
+    ui->comboBox->setMinimumWidth(6);
 
     ui->Webcam->setContextMenuPolicy(Qt::CustomContextMenu);
-
     connect(ui->Webcam, &QWidget::customContextMenuRequested ,this ,&MainWindow::webcamContextMenu);
 }
 
@@ -51,7 +57,8 @@ void MainWindow::webcamContextMenu()
 
 void MainWindow::configuration_action()
 {
-
+    QMessageBox::information(this, tr("Information"),
+                         tr("Functionality not tested."));
 }
 
 // ---------------------------------- Icons --------------------------------------------------------------
@@ -160,11 +167,16 @@ void MainWindow::decrease2(){ Speed(-2.0); }
 
 void MainWindow::error_management()
 {
-    //connect(player, static_cast<void(QMediaPlayer::*)(QMediaPlayer::Error)>(&QMediaPlayer::error), &MainWindow::playerError);
-    //connect(camera, static_cast<void(QCamera::*)(QCamera::Error)>(&QCamera::error), &MainWindow::cameraError);
+    //Static_cast es como a toi. Convierte un puntero a (&QMediaPlayer::error) a un puntero
+    //a una función perteneciente a QMediaPlater (QMediaPlayer::*) que tiene como parámetro
+    // (QMediaPlayer::Error)
+    //float f=0.0;
+    //int a = static_cast<int>(f)
+    connect(player, static_cast<void(QMediaPlayer::*)(QMediaPlayer::Error)>(&QMediaPlayer::error),this, &MainWindow::playerError );
+    connect(camera, static_cast<void(QCamera::*)(QCamera::Error)>(&QCamera::error),this, &MainWindow::cameraError );
 }
 
-void MainWindow::playerError()
+void MainWindow::playerError(QMediaPlayer::Error)
 {
     ui->Playpause->setEnabled(false);
     const QString errorString = player->errorString();
@@ -175,11 +187,11 @@ void MainWindow::playerError()
         message += errorString;
 
     QMessageBox::critical(this, tr("Error"),
-                         errorString);
+                         message);
 
 }
 
-void MainWindow::cameraError()
+void MainWindow::cameraError(QCamera::Error)
 {
     ui->Webcam->setEnabled(false);
     const QString errorString = camera->errorString();
@@ -190,7 +202,7 @@ void MainWindow::cameraError()
         message += errorString;
 
     QMessageBox::critical(this, tr("Error"),
-                         errorString);
+                         message);
 
 }
 
@@ -234,7 +246,7 @@ void MainWindow::on_Playpause_clicked()
 
         QString fileName = QFileDialog::getOpenFileName(this,
             tr("Open File"), QString(),
-            tr("Video Files (*.avi);"));
+            tr("AVI Files (*.avi);; MP4 Files (*.mp4"));
 
         if (!fileName.isEmpty()) {
 
@@ -280,10 +292,19 @@ void MainWindow::on_Webcam_clicked()
         camera->stop();
         setWindowTitle("Media Player");
     }else{
-        setWindowTitle(infocamera->deviceName());
+        setWindowTitle(camera_devices[0].deviceName());
         camera->setViewfinder(ui->screen);
         camera->start();
     }
 }
 
 
+
+
+void MainWindow::on_comboBox_activated(int index)
+{
+    camera = new QCamera(camera_devices[index]);
+    setWindowTitle(camera_devices[index].deviceName());
+    camera->setViewfinder(ui->screen);
+    camera->start();
+}
