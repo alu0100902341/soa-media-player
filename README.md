@@ -1,10 +1,9 @@
 # Información de la práctica
 
 ## Compilación:
-1. 
-2. 
-3. 
-4. 
+1. Hacemos un qmake en ssoo-media-player generando un make
+2. Ejecutamos dicho make generando el ejecutable
+3. Ejecutamos el ejecutable
 
 ## Características implementadas
 
@@ -18,20 +17,20 @@ Se ha dividido el código en varias partes para facilitar su lectura:
  
  2. Webcam Configuration. Almacenamos en nuestra lista de objetos QCameraInfo todas las cámaras disponibles en el ordenador y creamos de forma predeterminada una QCamera camera con el primero de los dispositivos. Además, creamos entradas en nuestra QComboBox por cada dispotivo de la lista. De manera adicional se implementó un menú de contexto que salta cuando hacemos click derecho sobre el botón Webcam. Dicho menú de contexto fue una prueba y su única misión es desplegar un menú con una única opción ("Configuration") que no está programada (webcamContextMenu() y configuration_action()).
 
- 3. Icons. En esta parte declaramos todos nuestros recursos (Imágenes en este caso), creamos nuestros iconos con ellas y las colocamos en los respectivos botones. Cabe destacar play_icon() y pause_icon(). La finalidad de estas dos es sustituir el icono del botón PlayPause cuando sea necesario (al parar un vídeo, al iniciar un vídeo, al hacerle stop...). Es poco práctico pero no he conseguido que QPixmap y QIcon dejen de quejarse cuando intento utilizarlos como atributo de mi rpograma (Con los cuál me ahorraría los dos slots y podría cambiarlos con un setIcon).
+ 3. Icons. En esta parte declaramos todos nuestros recursos (Imágenes en este caso), creamos nuestros iconos con ellas y las colocamos en los respectivos botones. Cabe destacar play_icon() y pause_icon(). La finalidad de estas dos es sustituir el icono del botón PlayPause cuando sea necesario (al parar un vídeo, al iniciar un vídeo, al hacerle stop...). Es poco práctico pero no he conseguido que QPixmap y QIcon dejen de quejarse cuando intento utilizarlos como atributo de mi programa (Con los cuál me ahorraría los dos slots y podría cambiarlos con un setIcon).
 
- 4. Forward and Rewind Pop-Up menus. En esta parte creamos las diferentes QAction que tendrán nuestros menus (velocidades), conectamos sus señales a sus respectivos slots (los cuáles utilizan una función llamada Speed(qreal que cambia el PlayBackRate por los valores reales predeterminados en el slot. Dicha muestra un menú si intentamos elegir una velocidad sin tener un vídeo reproduciendo), añadimos las acciones a los menus y colocamos los menus en sus respectivos botones.
+ 4. Forward and Rewind Pop-Up menus. En esta parte creamos las diferentes QAction que tendrán nuestros menus (velocidades) y conectamos sus señales a sus respectivos slots (los cuáles utilizan una función llamada Speed(qreal) que cambia el PlayBackRate por los valores reales predeterminados en el slot y muestra un warning si intentamos elegir una velocidad sin tener un vídeo reproduciendo), añadimos las acciones a los menus y colocamos los menus en sus respectivos botones.
 
- 5. Error Management. En esta parte creamos 2 connect para las señales de error del reproductor QMediaPlayer "player" y para la webcam QCamera "camara" vinculando dichas señales de error a 2 slots que tratan respectivamente los errores.
+ 5. Error Management. En esta parte creamos 2 connect para las señales de error del reproductor QMediaPlayer "player" y para la webcam QCamera "camera" vinculando dichas señales de error a 2 slots que tratan respectivamente los errores.
 
  6. Button Slots. Por último tenemos los slots de los botones. En un resumen muy corto:
   - Stop: Para la camara o el reproductor si estan activos. Si se pulsa cuando ni hay vídeo reproduciendo salta un warning. Si se pulsa con un PlayBackRate distinto del normal (1.0) lo normalizamos
  
   - Play/Pause: Abre un QFileDialog si el reproductor está en estado Stopped o si la webcam está activa para abrir un archivo, guardar su ruta (con la que poder reproducirlo) y utilizarla para sacar el nombre del archivo de ella para colocarlo en la cabecera de la ventana. Si hay un vídeo reproduciendo o parado pues para/reanuda el vídeo en cuestión (cambiando siempre los iconos como corresponda)
   
-  - Webcam: Para el reproductor si tiene algún vídeo. Si la webcam está activa la paramos. Si no la iniciamos con el dispositivo de cámara predeterminado
+  - Webcam: Para el reproductor o la webcam si están activos. Si no, la inicia con el dispositivo de cámara predeterminado
  
-  - ComboBox: Pequeño menú desplegable que nos muestra todos los dispositivos de cámara disponibles y nos da a elegir entre ellos. La selección la utilizará para iniciar la webcam con ella
+  - ComboBox: Pequeño menú desplegable que nos muestra todos los dispositivos de cámara disponibles y nos da a elegir entre ellos. La selección se utilizará para iniciar la webcam con ella
  
 ## Referencias utilizadas: Guías de QT, StackOverflow e internet en general.
 
